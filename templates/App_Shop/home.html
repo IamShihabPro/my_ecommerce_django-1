@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title_block %} Home {% endblock  %}
+
+
+{% block body_block %} 
+
+
+{% for product in object_list %}
+{{product.name}}
+{{product.price}}
+
+{% endfor %}
+
+{% endblock  %}
