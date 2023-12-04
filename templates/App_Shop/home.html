@@ -17,7 +17,7 @@
                     <img src="/media/{{product.mainmage}}" style="width: 100%; height: 300px;" alt="">
                 </div>
                 <figcaption class="info-wrap"> 
-                    <h6 class="title"> <a href="">{{product.name}}</a> </h6>
+                    <h6 class="title"> <a href="{% url "product_detail" pk=product.pk %}">{{product.name}}</a> </h6>
                     <div class="action-wrap">
                         <div class="price-wrap h5">
                             <span class="price-new">&#2547; {{product.price}} </span>
