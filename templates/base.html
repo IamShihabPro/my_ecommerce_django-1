@@ -4,13 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/423f0bb40e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <title>{% block title_block %} Ecommerce Shop {% endblock %}</title>
+
+    <style>
+        .card{
+            height: 350px;
+        }
+        .card-product:after{
+            content: '';
+            display: table;
+            clear: both;
+            visibility: hidden;
+        }
+        .card-product .price-new, .card-product .price{
+            margin-right: 5px;
+        }
+        .card-product .price-old{
+            color: #999;
+        }
+
+        .card-product .img-wrap{
+            border-radius: 3px 3px 0 0;
+            overflow: hidden;
+            position: relative;
+            height: 220px;
+            text-align: center;
+        }
+        .card-product .img-wrap img{
+            max-height: 100%;
+            max-width: 100%%;
+            object-fit: cover;
+        }
+
+        .card-product .info-wrap{
+            overflow: hidden;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        .card-product .action-wrap{
+            padding-top: 4px;
+            margin-top: 4px;
+        }
+        .card-product .button-wrap{
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        .card-product .title{
+            margin-top: 0px;
+        }
+
+    </style>
 </head>
 <body>
+    {% include "navbar.html" %}
     <div class="container" style="padding-top: 15px">
         <div class="messages container mt-2">
             {% if messages %}
@@ -28,7 +77,7 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 </html>
