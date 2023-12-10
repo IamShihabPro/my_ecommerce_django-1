@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title_block %} Cart {% endblock  %}
+
+{% block body_block %}
+
+<div class="container my-5">
+    <h2>Your Cart</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" width="15%">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col" align="right">Price</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for cart in carts %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{cart.item}}</td>
+                <td>
+                    <a href="" class="mr-2"><span class="btn btn-primary"> - </span></a>
+                    {{cart.quantity}}
+                    <a href="" class="mr-2"><span class="btn btn-success"> +</span></a>
+                </td>
+                <td align="">&#2547; {{cart.get_total}}</td>
+                <td class=""> <a href=""> <span class="btn btn-danger"> <i class="fas fa-trash"></i> </span> </a> </td>
+            </tr>
+            
+            {% endfor %}
+
+            <br>
+            <tr>
+                <th scope="row"></th>
+                <td colspan="2">Total</td>
+                <td align="">&#2547; {{order.get_totals | floatformat:2}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td colspan="4" class="text-center">
+                    <a href="{% url 'home' %}" class="btn btn-warning btn-sm mr-3"> Countinue Shopping</a>
+                    <a href="" class="btn btn-success btn-sm mr-3"> Proceed To Checkout</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock  %}
