@@ -61,3 +61,79 @@ def cart_view(request):
     else:
         messages.warning(request, "You don't have any item in cart!")
         return redirect('home')
+
+@login_required
+def remove_from_cart(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    print('item 68', item)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    print('order_qs 70', order_qs)
+
+    if order_qs.exists():
+        order = order_qs[0]
+        print('order 74', order)
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchase=False)[0]
+            print('order_item 77', order_item)
+            order.orderitems.remove(order_item)
+            order_item.delete()
+            messages.warning(request, "This item is remove in your cart")
+            return redirect('cart')
+        else:
+           messages.info(request, "This item is not in your cart")
+           return redirect('home')
+    else:
+        messages.info(request, "You don't have any active order")
+        return redirect('home')
+    
+
+@login_required
+def increase_cart(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchase=False)[0]
+            if order_item.quantity >= 1:
+                order_item.quantity += 1
+                order_item.save()
+                messages.info(request, f"{item} quantity has been updated")
+                return redirect('cart')
+        else:
+            messages.info(request, f"{item} is not in your cart")
+            return redirect('home')
+    else:
+        messages.info(request, "You don't have any active order")
+        return redirect('home')
+
+
+@login_required
+def decrease_cart(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchase=False)[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+                messages.info(request, f"{item} quantity has been updated")
+                return redirect('cart')
+                
+            else:
+                order.orderitems.remove(order_item)
+                order_item.delete()
+                messages.warning(request, f"{item} quantity has been updated")
+                return redirect('cart')
+
+
+
+        else:
+            messages.info(request, f"{item} is not in your cart")
+            return redirect('home')
+    else:
+        messages.info(request, "You don't have any active order")
+        return redirect('home')

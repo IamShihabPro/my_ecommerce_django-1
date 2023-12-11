@@ -36,4 +36,5 @@ class Order(models.Model):
         total = 0
         for order_item in self.orderitems.all():
             total += float(order_item.get_total())
-            return total
+        return total
+        
