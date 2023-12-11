@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title_block %} Checkout {% endblock  %}
+
+
+{% block body_block %}
+
+<div class="container mt-5 row">
+    <h2 class="mb-3">
+        Shipping Address <span class="text-muted">Checkout</span>
+    </h2>
+    <div class="col-md-8">
+        <div class="card mb-5" style="height: auto;">
+            <div class="card-body">
+                <form method="POST" class="">
+                    {{form|crispy}}
+                    {% csrf_token %}
+                    <button class="btn btn-primary btn-sm float-end" type="submit">Save Address</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <div class="card" style="height: auto;">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for order_item in order_items %}
+                        <li class="list-group-item"> <img src="/media/{{order_item.item.mainmage}}" style="width: 40px;" alt=""> <span>{{order_item.item}} x {{order_item.quantity}}</span></li>
+                        
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span class="float-start"> <b>Order Total</b> </span>
+                    <span class="float-end"> <b>&#2547; {{order_total|floatformat:2}}</b> </span>
+                </div>
+            </div>
+    </div>   
+</div>
+
+{% endblock  %}

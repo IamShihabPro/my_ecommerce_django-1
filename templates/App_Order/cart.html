@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <th scope="col" width="15%">#</th>
+                <th scope="col">Product Image</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Quantity</th>
                 <th scope="col" align="right">Price</th>
@@ -22,6 +23,7 @@
             {% for cart in carts %}
             <tr>
                 <th scope="row">{{forloop.counter}}</th>
+                <td> <img src="/media/{{cart.item.mainmage}}" style="width: 50px;" alt=""></td>
                 <td>{{cart.item}}</td>
                 <td>
                     <a href="{% url "decrease" pk=cart.item.pk %}" class="mr-2"><span class="btn btn-primary"> - </span></a>
@@ -45,7 +47,7 @@
                 <th scope="row"></th>
                 <td colspan="4" class="text-center">
                     <a href="{% url 'home' %}" class="btn btn-warning btn-sm mr-3"> Countinue Shopping</a>
-                    <a href="" class="btn btn-success btn-sm mr-3"> Proceed To Checkout</a>
+                    <a href="{% url "checkout" %}" class="btn btn-success btn-sm mr-3"> Proceed To Checkout</a>
                 </td>
             </tr>
         </tbody>
