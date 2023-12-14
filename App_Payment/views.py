@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib import messages
 
@@ -27,4 +27,16 @@ def checkout(request):
     print('order_items', order_items)
     order_total = order_qs[0].get_totals()
 
-    return render(request, 'App_Payment/checkout.html', context={'form':form, 'order_items':order_items, 'order_total':order_total}) 
+    return render(request, 'App_Payment/checkout.html', context={'form':form, 'order_items':order_items, 'order_total':order_total, 'saved_address':saved_address}) 
+
+@login_required
+def payment(request):
+    saved_address = BillingAddress.objects.get_or_create(user=request.user)
+    if not saved_address[0].is_fully_fillied():
+        messages.info(request, f'Please complete your shipping address')
+        return redirect('checkout')
+    
+    if not request.user.profile.is_fully_field():
+        messages.info(request, f'Please complete your Profile')
+        return redirect('profile')
+    return render(request, 'App_Payment/payment.html', context={})
